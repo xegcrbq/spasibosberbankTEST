@@ -55,16 +55,4 @@ FROM
     LEFT JOIN promotion
         ON promotion.partner_id = cash.partner_id /*после участия в акции партнера 1111*/
             AND promotion.active_flg = 1 /*Делаем допущение, что пользователи получают бонусы только по текущей активной акции*/
-GROUP BY cash.ow_id;/*не совершал покупок у партнера 4444*/
-
-SELECT cash.ow_id /*все клиенты совершившие более 5 транзакций, не совершавшие покупок у партнёра 4444 за последние 30 дней */
-FROM cash
-WHERE CURRENT_DATE - cash.cash_dt < 30
-GROUP BY cash.ow_id
-HAVING COUNT(*) > 5
-    AND SUM(CASE WHEN cash.partner_id = 4444 THEN 1 ELSE 0 END) = 0;
-
-SELECT DISTINCT cell.ow_id /*Все клиенты, кто получил хотя бы одну коммуникацию от данного партнера(1111)*/
-FROM cell
-WHERE  cell.partner_id = 1111
-    AND CURRENT_DATE - cell.sent_date < 30;
+GROUP BY cash.ow_id;
