@@ -8,7 +8,7 @@
 */
 
 /*Вариант 1, выводим всех клиентов, которые удовлетворяют условиям*/
-SELECT cash.ow_id,
+SELECT DISTINCT cash.ow_id,
     MAX(CASE WHEN cash.partner_id = 1111 THEN cash.pos::DECIMAL * (promotion.prcnt_value::DECIMAL / 100) ELSE 0 END) AS Наибольшее_количество_бонусов_за_1
     /*Вывести с наибольшим количеством бонусов, полученных за одну транзакцию после участия в акции партнера 1111*/
 FROM
